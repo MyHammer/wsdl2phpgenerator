@@ -240,7 +240,7 @@ class Validator
             $name = self::NAME_PREFIX . ucfirst($name);
         }
 
-        return preg_replace('/[^a-zA-Z0-9_x7f-xff]*/', '', preg_replace('/^[^a-zA-Z_x7f-xff]*/', '', $name));
+        return preg_replace('/[^a-zA-Z0-9x7f-xff]*/', '', preg_replace('/^[^a-zA-Zx7f-xff]*/', '', $name));
     }
 
     /**
