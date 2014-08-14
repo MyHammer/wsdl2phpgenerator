@@ -65,7 +65,7 @@ class PhpDocElement
         $ret .= '@' . $this->type;
 
         if (strlen($this->datatype) > 0) {
-            $ret .= ' ' . $this->datatype;
+            $ret .= ' ' . $this->validateDataType($this->datatype);
         }
 
         if (strlen($this->variableName) > 0) {
@@ -115,5 +115,22 @@ class PhpDocElement
     public function getDescription()
     {
         return $this->description;
+    }
+
+
+    /**
+     * Validates a name against standard PHP naming conventions (copy from Validator class)
+     *
+     * @param string $name the name to validate
+     * @return string the validated version of the submitted name
+     */
+    private static function validateDataType($name)
+    {
+        // Prepend the string a to names that begin with anything but a-z This is to make a valid name
+        if (preg_match('/^[A-Za-z_]/', $name) == false) {
+            $name = self::NAME_PREFIX . ucfirst($name);
+        }
+
+        return preg_replace('/[^a-zA-Z0-9x7f-xff]*/', '', preg_replace('/^[^a-zA-Zx7f-xff]*/', '', $name));
     }
 }
